@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, Text, TouchableOpacity, TextInput, FlatList, Image, Alert, Platform, StyleSheet } from 'react-native';
-import { SearchBar, Icon } from 'react-native-elements';
-import DropdownMenu from 'react-native-dropdown-menu';
+import { View, Text, TouchableOpacity, FlatList, Image, Alert, Picker, Platform, StyleSheet } from 'react-native';
 
 import { readProduct } from '../../redux/actions/product'
+import { readCategory } from '../../redux/actions/category'
 import { addToCart } from "../../redux/actions/cart"
-import { Input } from 'native-base';
+import { TextInput } from 'react-native-gesture-handler';
 
 class HomeScreen extends Component {
     static navigationOptions = ({ navigation }) => {
@@ -18,7 +17,14 @@ class HomeScreen extends Component {
                     <Text style={{ fontWeight: 'bold', color: "rgb(205, 111, 130)" }}>=</Text>
                 </TouchableOpacity>
             ),
-            title: 'CASHIERUN V1.7',
+            headerRight: () => (
+                <TouchableOpacity
+                    style={{ backgroundColor: 'white', border: '1px solid #000', padding: 8, justifyContent: 'center', alignItems: 'center', width: 50 }}
+                    onPress={() => navigation.navigate('Cart')}>
+                    <Text style={{ fontWeight: 'bold', color: "rgb(205, 111, 130)" }}>C</Text>
+                </TouchableOpacity>
+            ),
+            title: '  CASHIERUN V1.7',
             headerStyle: {
                 backgroundColor: 'rgb(205, 111, 130)'
             },
@@ -36,10 +42,15 @@ class HomeScreen extends Component {
 
     componentDidMount() {
         this.readProduct()
+        this.readCategory()
     }
 
     async readProduct() {
         await this.props.dispatch(readProduct())
+    }
+
+    async readCategory() {
+        await this.props.dispatch(readCategory())
     }
 
     addToCart = async data => {
@@ -48,7 +59,12 @@ class HomeScreen extends Component {
 
     onProduct = async product => {
         this.setState({ product });
-        this.props.dispatch(readProduct(product))
+        await this.props.dispatch(readProduct(this.state.category, product))
+    };
+
+    onCategory = async category => {
+        this.setState({ category });
+        await this.props.dispatch(readProduct(category, this.state.product))
     };
 
     renderRow = ({ item }) => {
@@ -72,48 +88,37 @@ class HomeScreen extends Component {
     }
 
     render() {
-        const { products } = this.props
+        const { products, categorys } = this.props
         return (
             <View style={{ flex: 1 }}>
-                <View>
-                    <SearchBar
-                        inputStyle={{ backgroundColor: 'white' }}
-                        containerStyle={{ backgroundColor: 'white', borderWidth: 1, borderRadius: 5 }}
-                        // placeholderTextColor={'#g5g5g5'}
-                        placeholder="Search..."
+                <View style={{ flexDirection: 'column', maxHeight: 120 }}>
+                    <TextInput
+                        style={{ backgroundColor: 'rgb(205, 111, 130)', color: 'white' }}
                         onChangeText={this.onProduct}
                         value={`${this.state.product}`}
                         autoCorrect={false}
                     />
-                </View>
-                <View>
-                    {/* <DropdownMenu
-                        style={{ flex: 1 }}
-                        bgColor={'white'}
-                        tintColor={'#666666'}
-                        activityTintColor={'green'}
-                        // arrowImg={}      
-                        // checkImage={}   
-                        // optionTextStyle={{color: '#333333'}}
-                        // titleStyle={{color: '#333333'}} 
-                        // maxHeight={300} 
-                        handler={(selection, row) => this.setState({ text: data[selection][row] })}
-                        data={products}
-                    >
-                        <View style={{ flex: 1 }}>
-                            <Text>
-                                {this.state.category}
-                            </Text>
-                        </View>
-                    </DropdownMenu> */}
+                    <Picker
+                        selectedValue={this.state.category}
+                        style={{ width: '100%' }}
+                        onValueChange={this.onCategory}>
+                        <Picker.Item label="All" value="" />
+                        {categorys.map((category, i) => {
+                            return (
+                                <Picker.Item key={i} value={category.name_category} label={category.name_category} />
+                            )
+                        })}
+                    </Picker>
                 </View>
                 <View style={styles.MainContainer}>
-                    <FlatList
-                        data={products}
-                        renderItem={this.renderRow}
-                        keyExtractor={(item) => item.id.toString()}
-                        numColumns={2}
-                    />
+                    <View>
+                        <FlatList
+                            data={products}
+                            renderItem={this.renderRow}
+                            keyExtractor={(item) => item.id.toString()}
+                            numColumns={2}
+                        />
+                    </View>
                 </View>
             </View>
         )
@@ -124,7 +129,6 @@ const styles = StyleSheet.create({
     MainContainer: {
         justifyContent: 'center',
         flex: 1,
-        margin: 10,
         paddingTop: (Platform.OS) === 'ios' ? 20 : 0
     },
     GridViewBlockStyle: {
@@ -148,12 +152,14 @@ const styles = StyleSheet.create({
     },
     GridViewCardInsideTextItemStyle: {
         // margin: 2,
+        color: 'red',
         fontSize: 14
     },
 });
 
 const mapStateToProps = (state) => {
     return {
+        categorys: state.categorys.categorys,
         products: state.products.products
     }
 }

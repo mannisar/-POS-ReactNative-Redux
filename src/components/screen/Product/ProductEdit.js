@@ -6,6 +6,17 @@ import { Container, Content, Form, Item, Input, Button, Text } from 'native-base
 import { updateProduct } from '../../redux/actions/product';
 
 class ProductEdit extends Component {
+    static navigationOptions = {
+        title: "EDIT RODUCT",
+        headerStyle: {
+            backgroundColor: 'rgb(205, 111, 130)'
+        },
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+            fontWeight: 'bold',
+        },
+    }
+
     state = {
         name_product: "",
         description: "",
@@ -44,9 +55,9 @@ class ProductEdit extends Component {
                         <Item>
                             <Input placeholder="description" onChangeText={(text) => this.setState({ description: text })} value={`${this.state.description}`} />
                         </Item>
-                        <Item>
+                        {/* <Item>
                             <Input type="file" onChangeText={(text) => this.setState({ image: text })} />
-                        </Item>
+                        </Item> */}
                         <Item>
                             <Input placeholder="price" onChangeText={(text) => this.setState({ price: text })} value={`${this.state.price}`} />
                         </Item>
@@ -57,7 +68,7 @@ class ProductEdit extends Component {
                             <Input placeholder="category" onChangeText={(text) => this.setState({ id_category: text })} value={`${this.state.id_category}`} />
                         </Item>
                     </Form>
-                    <Button primary style={{ margin: 10 }} onPress={this.onSubmit}>
+                    <Button primary style={{ margin: 10, backgroundColor: 'rgb(205, 111, 130)' }} onPress={this.onSubmit}>
                         <Text>Save</Text>
                     </Button>
                 </Content>

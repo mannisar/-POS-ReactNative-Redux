@@ -5,6 +5,17 @@ import { Container, Content, Form, Item, Input, Button, Text } from 'native-base
 import { createUser } from '../../redux/actions/user';
 
 class UserAdd extends Component {
+    static navigationOptions = {
+        title: "ADD USER",
+        headerStyle: {
+            backgroundColor: 'rgb(205, 111, 130)'
+        },
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+            fontWeight: 'bold',
+        },
+    }
+
     state = {
         name: "",
         email: "",
@@ -34,7 +45,7 @@ class UserAdd extends Component {
                             <Input placeholder="role" onChangeText={(text) => this.setState({ role: text })} />
                         </Item>
                     </Form>
-                    <Button primary style={{ margin: 10 }} onPress={this.onSubmit}>
+                    <Button primary style={{ margin: 10, backgroundColor: 'rgb(205, 111, 130)' }} onPress={this.onSubmit}>
                         <Text>Save</Text>
                     </Button>
                 </Content>

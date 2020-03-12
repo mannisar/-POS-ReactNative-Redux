@@ -6,6 +6,17 @@ import { Container, Content, Form, Item, Input, Button, Text } from 'native-base
 import { updateCategory } from '../../redux/actions/category';
 
 class CategoryEdit extends Component {
+    static navigationOptions = {
+        title: "EDIT CATEGORY",
+        headerStyle: {
+            backgroundColor: 'rgb(205, 111, 130)'
+        },
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+            fontWeight: 'bold',
+        },
+    }
+
     state = {
         name_category: ""
     }
@@ -32,7 +43,7 @@ class CategoryEdit extends Component {
                             <Input placeholder="name" onChangeText={(text) => this.setState({ name_category: text })} value={`${this.state.name_category}`} />
                         </Item>
                     </Form>
-                    <Button primary style={{ margin: 10 }} onPress={this.onSubmit}>
+                    <Button primary style={{ margin: 10, backgroundColor: 'rgb(205, 111, 130)' }} onPress={this.onSubmit}>
                         <Text>Save</Text>
                     </Button>
                 </Content>

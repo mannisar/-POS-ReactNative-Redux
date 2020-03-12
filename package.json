@@ -11,18 +11,22 @@
     "postinstall": "jetifier -r"
   },
   "dependencies": {
+    "@react-native-community/async-storage": "^1.8.1",
     "@react-native-community/masked-view": "^0.1.7",
     "axios": "^0.19.2",
+    "dotenv": "^8.2.0",
     "native-base": "^2.13.8",
     "react": "16.9.0",
-    "react-native": "0.61.5",
+    "react-native": "^0.61.5",
     "react-native-dropdown-menu": "^2.0.0",
     "react-native-elements": "^1.2.7",
     "react-native-gesture-handler": "^1.6.0",
+    "react-native-image-picker": "^2.3.1",
     "react-native-parallax-scroll-view": "^0.21.3",
     "react-native-reanimated": "^1.7.0",
     "react-native-safe-area-context": "^0.7.3",
     "react-native-screens": "^2.2.0",
+    "react-native-table-component": "^1.2.1",
     "react-native-vector-icons": "^6.6.0",
     "react-navigation": "^4.2.2",
     "react-navigation-drawer": "^2.4.2",
@@ -32,7 +36,9 @@
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.8",
     "redux-logger": "^3.0.6",
-    "redux-promise-middleware": "^6.1.2"
+    "redux-promise-middleware": "^6.1.2",
+    "uniqid": "^5.2.0",
+    "unlink": "0.0.2"
   },
   "devDependencies": {
     "@babel/core": "7.8.7",

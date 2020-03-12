@@ -8,7 +8,7 @@ import { Provider } from 'react-redux'
 
 
 import store from './src/components/redux/store';
-import LoginScreen from './src/components/screen/LoginScreen'
+import LoginScreen from './src/auth/screen/LoginScreen'
 import HomeScreen from './src/components/screen/Home/HomeScreen'
 
 /* PRODUCT */
@@ -26,10 +26,16 @@ import UserScreen from './src/components/screen/User/UserScreen'
 import UserAdd from './src/components/screen/User/UserAdd'
 import UserEdit from './src/components/screen/User/UserEdit'
 
+/* CART */
+import CartScreen from './src/components/screen/Cart/CartScreen'
+import HistoryScreen from './src/components/screen/Order/HistoryScreen'
+
 
 const MyStackNavigator = createStackNavigator({
   Login: LoginScreen,
   Home: HomeScreen,
+  Cart: CartScreen,
+  History: HistoryScreen,
 
   /* PRODUCT */
   Product: ProductScreen,
@@ -67,6 +73,7 @@ const MyDrawerNavigator = createDrawerNavigator({
   // UserEdit: UserEdit
 
   /* LOGOUT */
+  History: HistoryScreen,
   Login: LoginScreen
 });
 

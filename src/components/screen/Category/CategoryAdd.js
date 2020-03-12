@@ -5,6 +5,17 @@ import { Container, Content, Form, Item, Input, Button, Text } from 'native-base
 import { createCategory } from '../../redux/actions/category';
 
 class CategoryAdd extends Component {
+    static navigationOptions = {
+        title: "ADD CATEGORY",
+        headerStyle: {
+            backgroundColor: 'rgb(205, 111, 130)'
+        },
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+            fontWeight: 'bold',
+        },
+    }
+
     state = {
         name_product: "",
     }
@@ -22,7 +33,7 @@ class CategoryAdd extends Component {
                             <Input placeholder="name" onChangeText={(text) => this.setState({ name_category: text })} />
                         </Item>
                     </Form>
-                    <Button primary style={{ margin: 10 }} onPress={this.onSubmit}>
+                    <Button primary style={{ margin: 10, backgroundColor: 'rgb(205, 111, 130)' }} onPress={this.onSubmit}>
                         <Text>Save</Text>
                     </Button>
                 </Content>
